@@ -6,6 +6,11 @@ HOME = os.environ['HOME']
 USER = os.environ['USER']
 HOSTNAME = os.uname()[1]
 
+FILE_PATH = os.environ['NAUTILUS_SCRIPT_SELECTED_FILE_PATHS'].strip()
+SELECTD_URI = os.environ['NAUTILUS_SCRIPT_SELECTED_URIS'].strip()
+CURRENT_URI = os.environ['NAUTILUS_SCRIPT_CURRENT_URI'].strip()
+WINDOW_GEO = os.environ['NAUTILUS_SCRIPT_WINDOW_GEOMETRY'].strip()
+
 
 
 def sync_folder(folder,rsync_file='/home/ngarcia/.rsync/jobs.sh'):
