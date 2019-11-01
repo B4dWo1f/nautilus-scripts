@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import common
 import os
 HOME = os.environ['HOME']
 USER = os.environ['USER']
@@ -13,16 +14,17 @@ WINDOW_GEO = os.environ['NAUTILUS_SCRIPT_WINDOW_GEOMETRY'].strip()
 
 
 
-def sync_folder(folder,rsync_file='/home/ngarcia/.rsync/jobs.sh'):
+def sync_folder(folder,rsync_file=f'{HOME}/.rsync/jobs.sh'):
    """
      rsync the given folder
      If the folder is already in sync just uploaded in the moment,
      avoiding repetitions in the rsync_file
    """
+   S = common.load()
    ## Clean special characters
    folder = folder.replace(' ','\ ')
    com = 'rsync -r --delete-before -a --relative %s'%(folder)
-   com += ' noel@kasterborous.ddns.net:/media/BACKUP/%s'%(HOSTNAME)
+   com += f' {S.user}@{S.domain}:{S.folder}'
    os.system(com)
    ## Read all the currently syncing folders and files
    lines = open(rsync_file,'r').read().splitlines()
@@ -30,16 +32,18 @@ def sync_folder(folder,rsync_file='/home/ngarcia/.rsync/jobs.sh'):
       with open(rsync_file,'a') as f: f.write(com + '\n')
 
 
-def sync_file(abs_file,rsync_file='/home/ngarcia/.rsync/jobs.sh'):
+def sync_file(abs_file,rsync_file=f'{HOME}/.rsync/jobs.sh'):
    """
      rsync the given (the abs path) file
      If the file is already in sync just uploaded in the moment,
      avoiding repetitions in the rsync_file
    """
+   S = common.load()
    abs_file = abs_file.replace(' ','\ ')
    #com = 'rsync -r  %s'%(abs_file)
    com = 'rsync -r --delete-before -a --relative %s'%(abs_file)
-   com += ' noel@kasterborous.ddns.net:/media/BACKUP/%s'%(HOSTNAME)
+   #com += ' noel@kasterborous.ddns.net:/media/BACKUP/%s'%(HOSTNAME)
+   com += f' {S.user}@{S.domain}:{S.folder}'
    os.system(com)
    ## Read all the currently syncing folders and files
    lines = open(rsync_file,'r').read().splitlines()

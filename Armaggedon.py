@@ -12,10 +12,10 @@ CURRENT_URI = os.environ['NAUTILUS_SCRIPT_CURRENT_URI'].strip()
 WINDOW_GEO = os.environ['NAUTILUS_SCRIPT_WINDOW_GEOMETRY'].strip()
 
 
-with open('nautilus.log','w') as f:
+with open(f'{HOME}/nautilus.log','w') as f:
    f.write(HOSTNAME+', '+USER+', '+HOME+'\n')
-   f.write('*'+ FILE_PATH +'*\n')
-   f.write('*'+ SELECTD_URI +'*\n')
-   f.write('*'+ CURRENT_URI +'*\n')
-   f.write('*'+ WINDOW_GEO +'*\n\n')
+   f.write(f'*{FILE_PATH}*\n')
+   f.write(f'*{SELECTD_URI}*\n')
+   f.write(f'*{CURRENT_URI}*\n')
+   f.write(f'*{WINDOW_GEO}*\n\n')
 f.close()
